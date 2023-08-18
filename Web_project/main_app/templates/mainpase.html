@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>검색 결과</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .search-results {
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .search-result {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .search-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .search-url {
+            color: #4285f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-results">
+        {% for html_data in data %}
+            <div class="search-result">
+                <h2 class="search-title">{{html_data.title_field}}</h2>
+                <p>{{html_data.content_field}}</p>
+                <p>{{html_data.Time_field}}</p>
+                <button class="delete-button" data-user-id="{{html_data.User_ID_field}}" data-post-id="{{html_data.Post_ID_field}}">삭제</button>
+                <button class="remain-button" data-user-id="{{html_data.User_ID_field}}" data-post-id="{{html_data.Post_ID_field}}"data-post-txt="{{html_data.content_field}}"data-title-txt="{{html_data.title_field}}">수정</button>
+
+            </div>
+        {% endfor %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".remain-button").click(function() {
+                var userId = $(this).data("user-id");
+                var postId = $(this).data("post-id");
+                var post_txt = $(this).data("post-txt");
+                var title_txt = $(this).data("title-txt");
+
+                var dataToSend = new URLSearchParams({
+                    user_id: userId,
+                    post_id: postId,
+                    post_text :post_txt,
+                    title:title_txt
+                });
+                var confirmation = confirm("수정하시겠습니까?");
+                
+                if (confirmation) {
+                    window.location.href = "/main_fun/modify_ready/?" + dataToSend.toString();                    
+                }
+            })
+            $(".delete-button").click(function() {
+                var userId = $(this).data("user-id");
+                var postId = $(this).data("post-id");
+                var dataToSend = {
+                    user_id: userId,
+                    post_id: postId
+                };
+                var confirmation = confirm("정말로 삭제하시겠습니까?");
+                
+                if (confirmation) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/main_fun/deletdata/",
+                        data: {
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                            data: JSON.stringify(dataToSend)
+                        },
+                        success: function(response) {
+                            console.log("Server response:", response);
+                        },
+                        error: function(xhr, errmsg, err) {
+                            console.log("Error:", err);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

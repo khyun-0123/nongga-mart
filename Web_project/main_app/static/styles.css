@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html { 
+    font-size: 10px;
+}
+
+ul, li { 
+    list-style: none;
+}
+
+* { 
+    text-decoration: none;
+    color: inherit;
+}
+
+.board_Wrap { 
+    width: 1000px;
+    margin: 100px auto;
+}
+
+.board_Title { 
+    margin-bottom: 30px;
+}
+
+.board_Title strong { 
+    font-size: 3rem;  /* 최상위 값을 정의해주어야함 */
+}
+
+.board_Title p { 
+    margin-top: 5px;
+    font-size: 1.4rem;
+}
+
+.button_Wrap { 
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.button_Wrap a {
+    display: inline-block;
+    min-width: 80px;
+    margin-left: 10px;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size: 1.4rem;
+ }
+
+ .button_Wrap a:first-child{ 
+    margin-left: 0;
+ }
+
+ .button_Wrap a.on { 
+    background: #000;
+    color: #fff;
+ }
+
+.board_List { 
+    width: 100%;
+    border-top: 2px solid cadetblue;
+}
+
+.board_List > div { 
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_List > div.top { 
+    border-bottom: 1px solid #999;
+}
+
+.board_List > div:last-child { 
+    border-bottom: 1px solid #000;
+}
+
+.board_List > div > div { 
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.board_List > div.top > div { 
+    font-weight: 600;
+}
+
+.board_List .num { 
+    width: 10%;
+}
+
+.board_List .title { 
+    width: 60%;
+    text-align: left;
+}
+
+.board_List .top .title { 
+    text-align: center;
+}
+
+.board_List .writer { 
+    width: 10%;
+}
+
+
+.board_List .date { 
+    width: 10%;
+}
+
+.board_List .count { 
+    width: 10%;
+}
+
+.board_Page { 
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0;
+}
+
+.board_Page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 1px solid #000;
+    border-left: 0;
+    line-height: 100%;
+}
+
+.board_Page a.bt { 
+    padding-top: 10px;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+}
+
+.board_Page a.num {
+    padding-top: 9px; 
+    font-size: 1.4rem;
+}
+
+.board_Page a.num.on { 
+    border-color: #000;
+    background: #000;
+    color: #fff;
+}
+
+.board_Page a:first-child { 
+    border-left: 1px solid #ddd;
+}
+

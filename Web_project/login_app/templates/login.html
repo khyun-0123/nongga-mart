@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Combine your existing styles and new styles here */
+        /* ... */
+        .information {
+            display: flex;
+            align-items: center;
+        }
+
+        .information img {
+            float: right;
+            width: 30%; /* Set the desired percentage width */
+            height: auto;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="information">
+            <img src="{% static 'login_image.png' %}" alt="Login Image">
+            로그인 페이지입니다
+        </div>
+        <div class="titleWrap">
+        </div>
+        <div class="contentWrap">
+            <form method="post" class="Login_Form">
+                {% csrf_token %}
+                <div class="inputTitle">이메일 주소</div>
+                <div class="inputWrap">
+                    {{ form.email }}
+                </div>
+                <div class="errorMessageWrap">
+                    <div id="emailError" class="error-message">{{ form.email.errors }}</div>
+                </div>
+                <div style="margin-top: 26px;" class="inputTitle">비밀번호</div>
+                <div class="inputWrap">
+                    {{ form.password }}
+                </div>
+                <div class="errorMessageWrap">
+                    <div id="passwordError" class="error-message">{{ form.password.errors }}</div>
+                </div>
+                <button id="loginButton" class="bottomButton" {% if form.errors %}disabled{% endif %}>확인</button>
+            </form>
+        </div>
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+    </div>
+
+    <script>
+        const emailInput = document.getElementById("id_email");
+        const passwordInput = document.getElementById("id_password");
+        const loginButton = document.getElementById("loginButton");
+
+        emailInput.addEventListener("input", checkFormValidity);
+        passwordInput.addEventListener("input", checkFormValidity);
+
+        function checkFormValidity() {
+            if (emailInput.value.includes("@") && passwordInput.value.length >= 1) {
+                loginButton.disabled = false;
+            } else {
+                loginButton.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>

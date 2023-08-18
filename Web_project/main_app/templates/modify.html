@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 수정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            max-width: 90%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0 0 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            resize: vertical;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>글 수정</h1>
+        <form method="POST" action="/main_fun/modify_ready/">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{ context.user_id }}">
+            <input type="hidden" name="post_id" value="{{ context.post_id }}">
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" value="{{ context.title }}" required>
+            <label for="post_text">내용:</label>
+            <textarea id="post_text" name="post_text" rows="10" cols="50" required>{{ context.post_text }}</textarea>
+            <button type="submit" id="modifying">수정 완료</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("modifying").addEventListener("click", function() {
+            var title = document.getElementById("title").value; 
+            var postText = document.getElementById("post_text").value; 
+            var postid = "{{ context.post_id }}"; 
+            var data = new URLSearchParams({
+                title: title,
+                post: postText,
+                post_id: postid
+            });
+            window.location.href = "/main_fun/modify/?" + data.toString();
+        });
+    </script>
+</body>
+</html>
